@@ -1,10 +1,10 @@
 import './App.css';
-import InspireContainer from './containers/InspireContainer';
+import Game from './containers/Game';
 
 function App() {
   return (
     <div className="App">
-      <InspireContainer/>     
+      <Game/>     
     </div>
   );
 }
