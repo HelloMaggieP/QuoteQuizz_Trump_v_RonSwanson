@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react';
 import Quote from '../components/Quote';
 
 const Game = ()=>{
-    const [ronQuote, setRonQuote] = useState({text: ""})
-    const [donaldQuote, setDonaldQuote] = useState([])
+    const [ronQuote, setRonQuote] = useState({text: "", tag:"ron"})
+    const [donaldQuote, setDonaldQuote] = useState({text:"", tag:"donald"})
     const [displayedQuote, setDisplayedQuote] = useState(null)
     //Q:Not sure why Donald Quote takes [] and Ron is ""
    
+    //Watching for changes in the quote values
     useEffect(()=>{
         if (ronQuote !== displayedQuote){
             setDisplayedQuote(ronQuote.text)
@@ -15,7 +16,7 @@ const Game = ()=>{
 
     useEffect(()=>{
         if(donaldQuote !== displayedQuote){
-            setDisplayedQuote(donaldQuote)
+            setDisplayedQuote(donaldQuote.text)
         }
     },[donaldQuote])
 
@@ -23,12 +24,12 @@ const Game = ()=>{
     const fetchRonQuote = function(){
         fetch("https://ron-swanson-quotes.herokuapp.com/v2/quotes")
         .then(res => res.json())
-        .then(ronQuote => setRonQuote({text: ronQuote}))
+        .then(ronQuote => setRonQuote({text: ronQuote, tag:"ron"}))
     }
     const fetchDonaldQuote = function(){
         fetch("https://api.tronalddump.io/random/quote")
         .then(res => res.json())
-        .then(donaldQuote => setDonaldQuote(donaldQuote.value))
+        .then(donaldQuote => setDonaldQuote({text: donaldQuote.value, tag:"donald"}))
     }
 
     //random choice generator between which API to send a fetch request to
@@ -43,13 +44,12 @@ const Game = ()=>{
     }
     
 
-
     return (
         <>
             <h1>Who Said This?</h1>
             <button onClick={handleClickNewQuote} >Get New Quote</button>
-            {/* <Quote ronQuote = {ronQuote} donaldQuote = {donaldQuote}/> */}
             <Quote displayedQuote={displayedQuote}/>
+            <img></img>
         </>
     )
 }
