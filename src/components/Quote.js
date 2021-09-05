@@ -6,7 +6,7 @@ const Quote = ({displayedQuote})=> {
     console.log(displayedQuote)
     return(
         <>
-        <h2 className="quote">{displayedQuote}</h2>
+        <h2 className="quote">{displayedQuote.text}</h2>
        
         
         </>

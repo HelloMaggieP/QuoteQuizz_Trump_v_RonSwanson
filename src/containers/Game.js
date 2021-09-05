@@ -7,20 +7,21 @@ import Quote from '../components/Quote';
 const Game = ()=>{
     const [ronQuote, setRonQuote] = useState({text: "", tag:"ron"})
     const [donaldQuote, setDonaldQuote] = useState({text:"", tag:"donald"})
-    const [displayedQuote, setDisplayedQuote] = useState(null)
-    let score = 0
+    const [displayedQuote, setDisplayedQuote] = useState({text:"", tag:"donald"})
+    const [checkedAnswer, setCheckAnswer] = useState(null)
+    // let answer = ""
     //Q:Not sure why Donald Quote takes [] and Ron is ""
    
     //Watching for changes in the quote values
     useEffect(()=>{
         if (ronQuote !== displayedQuote){
-            setDisplayedQuote(ronQuote.text, ronQuote.tag)
+            setDisplayedQuote({text: ronQuote.text, tag: ronQuote.tag})
         }
     }, [ronQuote]);
 
     useEffect(()=>{
         if(donaldQuote !== displayedQuote){
-            setDisplayedQuote(donaldQuote.text, donaldQuote.tag)
+            setDisplayedQuote({text: donaldQuote.text, tag: donaldQuote.tag})
         }
     }, [donaldQuote])
 
@@ -51,21 +52,22 @@ const Game = ()=>{
     
     //Displayed Quote doesn't have a tag. Can't seem to add on line 17 and 23.
     const checkAnswer = (e)=>{
-        score = 0
+        // let answer = ""
         if (e.target.alt === displayedQuote['tag']){
-            return "correct"
+            return <h5>"Correct"</h5> //NEITHER IS THIS
         }else{
-            return console.log("Nope. Guess Again")
+            return <h5>"Nope. Guess Again!"</h5> //THIS IS NOT DISPLAYING
         }
-        return score
-       
     };
     
+    // useEffect(()=>{
+    //     setCheckAnswer(checkedAnswer);
+    // }, [checkAnswer])
 
     return (
         <>
             <h1>Who Said This?</h1>
-            <h4>Score: {score}</h4>
+            <h4>Answer: {checkedAnswer}</h4>
             <button onClick={handleClickNewQuote}>Get New Quote</button>
             <Quote className="quote" displayedQuote={displayedQuote}/>
             {/* <Answer /> */}
