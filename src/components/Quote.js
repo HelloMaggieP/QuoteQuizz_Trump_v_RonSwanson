@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Quote = ({ronQuote, donaldQuote})=> {
+const Quote = ({displayedQuote})=> {
     
     
     return(
         <>
-        <h2>{ronQuote.text}</h2>
-        <h2>{donaldQuote}</h2>
+        <h2>{displayedQuote}</h2>
+        
         </>
     )
 }

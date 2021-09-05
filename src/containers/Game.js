@@ -4,25 +4,28 @@ import Quote from '../components/Quote';
 const Game = ()=>{
     const [ronQuote, setRonQuote] = useState({text: ""})
     const [donaldQuote, setDonaldQuote] = useState([])
+    const [displayedQuote, setDisplayedQuote] = useState(null)
     //Q:Not sure why Donald Quote takes [] and Ron is ""
    
     useEffect(()=>{
-        return console.log(ronQuote)
-    },[ronQuote])
+        if (ronQuote !== displayedQuote){
+            setDisplayedQuote(ronQuote.text)
+        }
+    },[ronQuote]);
 
     useEffect(()=>{
-        return console.log(donaldQuote)
+        if(donaldQuote !== displayedQuote){
+            setDisplayedQuote(donaldQuote)
+        }
     },[donaldQuote])
 
     //fetch requests to APIs
     const fetchRonQuote = function(){
-        console.log("Ron Function Called")
         fetch("https://ron-swanson-quotes.herokuapp.com/v2/quotes")
         .then(res => res.json())
         .then(ronQuote => setRonQuote({text: ronQuote}))
     }
     const fetchDonaldQuote = function(){
-        console.log("Donald Function Called")
         fetch("https://api.tronalddump.io/random/quote")
         .then(res => res.json())
         .then(donaldQuote => setDonaldQuote(donaldQuote.value))
@@ -39,14 +42,14 @@ const Game = ()=>{
             }     
     }
     
+
+
     return (
         <>
             <h1>Who Said This?</h1>
             <button onClick={handleClickNewQuote} >Get New Quote</button>
-               
-            <Quote ronQuote = {ronQuote} donaldQuote = {donaldQuote}/>
-            {/* <button onClick={fetchRonQuote}>Ron Quote</button>
-            <button onClick={fetchDonaldQuote}>Donald Quote</button> */}
+            {/* <Quote ronQuote = {ronQuote} donaldQuote = {donaldQuote}/> */}
+            <Quote displayedQuote={displayedQuote}/>
         </>
     )
 }
