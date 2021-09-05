@@ -1,26 +1,30 @@
+import '../App.css';
 import React, {useState, useEffect} from 'react';
-import Quote from '../components/Quote';
 import Ron from '../images/Ron.png';
 import Trump from '../images/Trump.png';
+import Quote from '../components/Quote';
 
 const Game = ()=>{
     const [ronQuote, setRonQuote] = useState({text: "", tag:"ron"})
     const [donaldQuote, setDonaldQuote] = useState({text:"", tag:"donald"})
     const [displayedQuote, setDisplayedQuote] = useState(null)
+    let score = 0
     //Q:Not sure why Donald Quote takes [] and Ron is ""
    
     //Watching for changes in the quote values
     useEffect(()=>{
         if (ronQuote !== displayedQuote){
-            setDisplayedQuote(ronQuote.text)
+            setDisplayedQuote(ronQuote.text, ronQuote.tag)
         }
-    },[ronQuote]);
+    }, [ronQuote]);
 
     useEffect(()=>{
         if(donaldQuote !== displayedQuote){
-            setDisplayedQuote(donaldQuote.text)
+            setDisplayedQuote(donaldQuote.text, donaldQuote.tag)
         }
-    },[donaldQuote])
+    }, [donaldQuote])
+
+    //Q:Not sure how to write a useEffect to load quote
 
     //fetch requests to APIs
     const fetchRonQuote = function(){
@@ -45,14 +49,30 @@ const Game = ()=>{
             }     
     }
     
+    //Displayed Quote doesn't have a tag. Can't seem to add on line 17 and 23.
+    const checkAnswer = (e)=>{
+        score = 0
+        if (e.target.alt === displayedQuote['tag']){
+            return "correct"
+        }else{
+            return console.log("Nope. Guess Again")
+        }
+        return score
+       
+    };
+    
 
     return (
         <>
             <h1>Who Said This?</h1>
-            <button onClick={handleClickNewQuote} >Get New Quote</button>
-            <Quote displayedQuote={displayedQuote}/>
-            <img src={Ron}></img>
-            <img src ={Trump}/>
+            <h4>Score: {score}</h4>
+            <button onClick={handleClickNewQuote}>Get New Quote</button>
+            <Quote className="quote" displayedQuote={displayedQuote}/>
+            {/* <Answer /> */}
+            <img className="image" src={Ron} alt="ron" value="ron" onClick={checkAnswer}/>
+            <img className="image" src ={Trump} alt="donald" value="donald" onClick={checkAnswer}/>
+        
+            {/* <Answer onClick={checkAnswer}/> */}
         </>
     )
 }
