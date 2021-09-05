@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Quote from '../components/Quote';
+import Ron from '../images/Ron.png';
+import Trump from '../images/Trump.png';
 
 const Game = ()=>{
     const [ronQuote, setRonQuote] = useState({text: "", tag:"ron"})
@@ -49,7 +51,8 @@ const Game = ()=>{
             <h1>Who Said This?</h1>
             <button onClick={handleClickNewQuote} >Get New Quote</button>
             <Quote displayedQuote={displayedQuote}/>
-            <img></img>
+            <img src={Ron}></img>
+            <img src ={Trump}/>
         </>
     )
 }
